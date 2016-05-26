@@ -4,9 +4,10 @@ module Refinery
   module API
     RSpec.describe Images do
       let(:client) { Images.new }
-      let(:payload) do
-        { "product" => {
-            "name" => "Cool name", "price" => 100, "shipping_category_id" => 1
+      let(:image_cat) do
+        { "image" => {
+            "image" => [upload_file('thinking-cat.jpg')],
+            "image_title" => 'Cat'
           }
         }
       end
@@ -21,29 +22,16 @@ module Refinery
         end
       end
 
-      # describe "#product_attributes" do
-      #   it "fetches attributes needed to create a product" do
-      #     VCR.use_cassette("products/attributes") do
-      #       response = client.product_attributes
-
-      #       expect(response.status).to eq(200)
-      #       expect(JSON.parse(response.body)["attributes"])
-      #         .to(include("id", "name", "price"))
-
-      #       expect(JSON.parse(response.body)["required_attributes"])
-      #         .to(include("name", "price", "shipping_category_id"))
+      # Still buggy, look at upload_file function into fixtures_helpers.rb
+      # describe "#create" do
+      #   it "creates a image" do
+      #     VCR.use_cassette("images/create") do
+      #       response = client.create(image: image_cat)
+      #       expect(response.status).to eq(201)
+      #       expect(JSON.parse(response.body)["image_title"]).to eq("Cat")
       #     end
       #   end
       # end
-
-      # describe "#create" do
-      #   it "creates a product" do
-      #     VCR.use_cassette("products/create") do
-      #       response = client.create(product: payload)
-      #       expect(response.status).to eq(201)
-      #       expect(JSON.parse(response.body)["name"]).to eq("Cool name")
-      #     end
-      #   end
 
       #   it "returns errors when payload is invalid" do
       #     VCR.use_cassette("products/create/invalid") do
